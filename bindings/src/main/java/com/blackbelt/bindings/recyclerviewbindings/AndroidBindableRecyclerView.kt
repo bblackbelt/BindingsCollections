@@ -14,41 +14,59 @@ import com.blackbelt.bindings.BaseBindableRecyclerView
 
 class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : BaseBindableRecyclerView(context, attrs) {
 
-    private var mPageScrollListener: PageScrollListener? = null
+    private var pageScrollListener: PageScrollListener? = null
+
+    private var pageListener: OnPageChangeListener? = null
 
     var pageDescriptor: PageDescriptor? = null
         set(pageDescriptor) {
-            if (mPageScrollListener != null) {
-                removeOnScrollListener(mPageScrollListener)
+            if (pageScrollListener != null) {
+                removeOnScrollListener(pageScrollListener)
             }
             field = pageDescriptor
-            mPageScrollListener = PageScrollListener(field)
-            addOnScrollListener(mPageScrollListener)
+            pageScrollListener = PageScrollListener()
+            if (pageListener != null) {
+                pageScrollListener?.pageChangeListener = pageListener
+            }
+            pageScrollListener?.updatePageDescriptor(field)
+            addOnScrollListener(pageScrollListener)
         }
 
-    private var mOnPageChangeListener: OnPageChangeListener? = null
+    private class PageScrollListener : RecyclerView.OnScrollListener() {
 
-    private inner class PageScrollListener internal constructor(private val mPageDescriptor: PageDescriptor?) : RecyclerView.OnScrollListener() {
+        private var pageDescriptor: PageDescriptor? = null
 
-        private var mVisiblePosition: IntArray? = null
-
-        private var mPage = 1
-
-        init {
-            mPage = mPageDescriptor!!.getStartPage()
+        fun updatePageDescriptor(value: PageDescriptor?) {
+            if (value === pageDescriptor) {
+                return
+            }
+            pageDescriptor = value
+            if (value != null && !first && pageChangeListener != null) {
+                pageChangeListener?.onPageChangeListener(value)
+                first = true
+            }
         }
+
+        private var first = false
+
+        var pageChangeListener: OnPageChangeListener? = null
+            set(value) {
+                field = value
+                if (value != null && pageDescriptor != null && !first) {
+                    field?.onPageChangeListener(pageDescriptor ?: return)
+                    first = true
+                }
+            }
 
         override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-            val pageDescriptor: PageDescriptor = mPageDescriptor ?: return
+            val pageDescriptor: PageDescriptor = pageDescriptor ?: return
             val layoutManager: LayoutManager = recyclerView?.layoutManager ?: return
             val totalItemCount = layoutManager.itemCount
             val lastVisibleItem = getLastVisibleItemPosition(layoutManager)
             if (totalItemCount - lastVisibleItem <= pageDescriptor.getThreshold()) {
                 if (pageDescriptor.getCurrentPage() < 1 + totalItemCount / pageDescriptor.getPageSize()) {
                     pageDescriptor.setCurrentPage(1 + totalItemCount / pageDescriptor.getPageSize())
-                    if (mOnPageChangeListener != null) {
-                        mOnPageChangeListener?.onPageChangeListener(pageDescriptor)
-                    }
+                    pageChangeListener?.onPageChangeListener(pageDescriptor)
                 }
             }
         }
@@ -56,28 +74,17 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
         private fun getLastVisibleItemPosition(layoutManager: RecyclerView.LayoutManager): Int {
             if (layoutManager is LinearLayoutManager) {
                 return layoutManager.findLastVisibleItemPosition()
-            } else if (layoutManager is StaggeredGridLayoutManager) {
-                if (mVisiblePosition == null) {
-                    mVisiblePosition = IntArray(layoutManager.spanCount)
-                }
-                return layoutManager
-                        .findLastVisibleItemPositions(mVisiblePosition)[0]
-            }
-            return 0
-        }
-
-        internal fun setOnPageChangeListener(onPageChangeListener: OnPageChangeListener) {
-            mOnPageChangeListener = onPageChangeListener
-            if (mPageDescriptor != null && mOnPageChangeListener != null) {
-                mOnPageChangeListener?.onPageChangeListener(mPageDescriptor)
+            } else {
+                throw UnsupportedOperationException()
             }
         }
     }
 
     fun setOnPageChangeListener(pageChangeListener: OnPageChangeListener) {
-        mOnPageChangeListener = pageChangeListener
-        if (mPageScrollListener != null) {
-            mPageScrollListener!!.setOnPageChangeListener(pageChangeListener)
+        if (pageScrollListener != null) {
+            pageScrollListener?.pageChangeListener = pageChangeListener
+        } else {
+            pageListener = pageChangeListener
         }
     }
 
