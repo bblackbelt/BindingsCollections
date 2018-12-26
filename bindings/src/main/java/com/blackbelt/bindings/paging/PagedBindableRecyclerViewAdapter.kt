@@ -1,10 +1,10 @@
 package com.blackbelt.bindings.paging
 
-import android.arch.paging.PagedList
-import android.arch.paging.PagedListAdapter
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
+import androidx.paging.PagedList
+import androidx.paging.PagedListAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.blackbelt.bindings.recyclerviewbindings.AndroidItemBinder

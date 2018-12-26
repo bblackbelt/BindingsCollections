@@ -8,7 +8,7 @@
             type="com.bblackbelt.githubusers.api.model.User" />
     </data>
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         style="@style/CardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,5 +48,5 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

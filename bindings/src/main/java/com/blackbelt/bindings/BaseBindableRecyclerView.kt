@@ -1,8 +1,8 @@
 package com.blackbelt.bindings
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -10,9 +10,9 @@ import com.blackbelt.bindings.recyclerviewbindings.ItemClickListener
 import com.blackbelt.bindings.recyclerviewbindings.RecyclerViewGestureListener
 
 abstract class BaseBindableRecyclerView(context: Context, attrs: AttributeSet?)
-    : RecyclerView(context, attrs), RecyclerView.OnItemTouchListener {
+    : androidx.recyclerview.widget.RecyclerView(context, attrs), androidx.recyclerview.widget.RecyclerView.OnItemTouchListener {
 
-    private var mSnapHelper: SnapHelper? = null
+    private var mSnapHelper: androidx.recyclerview.widget.SnapHelper? = null
 
     private var mRecyclerViewGestureListener: RecyclerViewGestureListener? = null
 
@@ -27,11 +27,11 @@ abstract class BaseBindableRecyclerView(context: Context, attrs: AttributeSet?)
         mRecyclerViewGestureListener!!.setRecyclerViewClickListener(l)
     }
 
-    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+    override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
         return mGestureDetector?.onTouchEvent(e) ?: false
     }
 
-    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+    override fun onTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent) {}
 
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 
@@ -49,7 +49,7 @@ abstract class BaseBindableRecyclerView(context: Context, attrs: AttributeSet?)
 
     abstract fun getItemAtPosition(position: Int): Any?
 
-    fun setSnapHelper(snapHelper: SnapHelper) {
+    fun setSnapHelper(snapHelper: androidx.recyclerview.widget.SnapHelper) {
         if (mSnapHelper != null) {
             mSnapHelper?.attachToRecyclerView(null)
         }

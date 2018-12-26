@@ -8,7 +8,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 
 
 

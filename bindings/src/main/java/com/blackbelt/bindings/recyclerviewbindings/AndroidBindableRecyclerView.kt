@@ -2,10 +2,10 @@ package com.blackbelt.bindings.recyclerviewbindings
 
 import android.content.Context
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SnapHelper
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -18,17 +18,19 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
 
     var pageDescriptor: PageDescriptor? = null
         set(pageDescriptor) {
-            if (mPageScrollListener != null) {
-                removeOnScrollListener(mPageScrollListener)
+            mPageScrollListener?.let {
+                removeOnScrollListener(it)
             }
             field = pageDescriptor
             mPageScrollListener = PageScrollListener(field)
-            addOnScrollListener(mPageScrollListener)
+            mPageScrollListener?.let {
+                addOnScrollListener(it)
+            }
         }
 
     private var mOnPageChangeListener: OnPageChangeListener? = null
 
-    private inner class PageScrollListener internal constructor(private val mPageDescriptor: PageDescriptor?) : RecyclerView.OnScrollListener() {
+    private inner class PageScrollListener internal constructor(private val mPageDescriptor: PageDescriptor?) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
 
         private var mVisiblePosition: IntArray? = null
 
@@ -38,9 +40,9 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
             mPage = mPageDescriptor!!.getStartPage()
         }
 
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
             val pageDescriptor: PageDescriptor = mPageDescriptor ?: return
-            val layoutManager: LayoutManager = recyclerView?.layoutManager ?: return
+            val layoutManager: LayoutManager = recyclerView.layoutManager ?: return
             val totalItemCount = layoutManager.itemCount
             val lastVisibleItem = getLastVisibleItemPosition(layoutManager)
             if (totalItemCount - lastVisibleItem <= pageDescriptor.getThreshold()) {
@@ -53,10 +55,10 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
             }
         }
 
-        private fun getLastVisibleItemPosition(layoutManager: RecyclerView.LayoutManager): Int {
-            if (layoutManager is LinearLayoutManager) {
+        private fun getLastVisibleItemPosition(layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager): Int {
+            if (layoutManager is androidx.recyclerview.widget.LinearLayoutManager) {
                 return layoutManager.findLastVisibleItemPosition()
-            } else if (layoutManager is StaggeredGridLayoutManager) {
+            } else if (layoutManager is androidx.recyclerview.widget.StaggeredGridLayoutManager) {
                 if (mVisiblePosition == null) {
                     mVisiblePosition = IntArray(layoutManager.spanCount)
                 }

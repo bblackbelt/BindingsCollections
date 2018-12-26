@@ -1,6 +1,6 @@
 package com.blackbelt.bindings.paging
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 class PagedItemSourceDiffCallback<T> : DiffUtil.ItemCallback<T>() where T : Any {
 

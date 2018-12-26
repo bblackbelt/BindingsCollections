@@ -1,14 +1,15 @@
 package com.blackbelt.bindings.activity
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import com.blackbelt.bindings.notifications.ClickItemWrapper
 import com.blackbelt.bindings.notifications.MessageDelegate
+import com.blackbelt.bindings.notifications.Params
 import com.blackbelt.bindings.viewmodel.BaseViewModel
 
 abstract class BaseBindingActivity : AppCompatActivity() {
@@ -37,12 +38,12 @@ abstract class BaseBindingActivity : AppCompatActivity() {
         super.setContentView(mDataBinding?.root)
     }
 
-    private fun handleClick(item: ClickItemWrapper?) {
+    private fun handleClick(item: ClickItemWrapper<Params>?) {
         val itemClicked = item ?: return
         onItemClicked(itemClicked)
     }
 
-    protected open fun onItemClicked(itemWrapper: ClickItemWrapper) {}
+    protected open fun onItemClicked(itemWrapper: ClickItemWrapper<Params>) {}
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,22 +1,23 @@
 package com.blackbelt.bindings.fragment
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blackbelt.bindings.notifications.ClickItemWrapper
 import com.blackbelt.bindings.notifications.MessageDelegate
+import com.blackbelt.bindings.notifications.Params
 import com.blackbelt.bindings.viewmodel.BaseViewModel
 
 
-abstract class BaseBindingFragment : Fragment() {
+abstract class BaseBindingFragment :Fragment() {
 
     protected var mViewModel: BaseViewModel? = null
 
@@ -50,12 +51,12 @@ abstract class BaseBindingFragment : Fragment() {
         return mDataBinding?.root
     }
 
-    private fun handleClick(item: ClickItemWrapper?) {
+    private fun handleClick(item: ClickItemWrapper<Params>?) {
         val itemClicked = item ?: return
         onItemClicked(itemClicked)
     }
 
-    protected open fun onItemClicked(itemWrapper: ClickItemWrapper) {}
+    protected open fun onItemClicked(itemWrapper: ClickItemWrapper<Params>) {}
 
     override fun onDestroy() {
         super.onDestroy()

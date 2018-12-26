@@ -1,10 +1,10 @@
 package com.bblackbelt.githubusers.view.users.viewmodel
 
-import android.arch.lifecycle.*
-import android.arch.paging.PagedList
+import androidx.lifecycle.*
+import androidx.paging.PagedList
 import android.content.res.Resources
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.bblackbelt.githubusers.R
 import com.bblackbelt.githubusers.api.model.User
@@ -38,22 +38,22 @@ class UsersViewModel(private val usersDataRepository: IUserDataRepository) : Bas
                     }
                     is User -> {
                         val listItem = item as? User ?: return
-                        mMessageNotifier.value = MessageWrapper.withSnackBar(listItem.login)
+                       sendMessageEvent(MessageWrapper.withSnackBar(listItem.login))
                     }
                 }
             }
         }
     }
 
-    val itemDecoration: RecyclerView.ItemDecoration by lazy {
+    val itemDecoration: androidx.recyclerview.widget.RecyclerView.ItemDecoration by lazy {
         val margin: Int = (Resources.getSystem().displayMetrics.density * 4f).toInt()
         val lateralMargin: Int = (Resources.getSystem().displayMetrics.density * 16f).toInt()
-        object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-                outRect?.bottom = margin
-                outRect?.top = margin
-                outRect?.left = lateralMargin
-                outRect?.right = lateralMargin
+        object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+                outRect.bottom = margin
+                outRect.top = margin
+                outRect.left = lateralMargin
+                outRect.right = lateralMargin
             }
         }
     }

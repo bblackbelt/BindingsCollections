@@ -1,11 +1,11 @@
 package com.blackbelt.bindings.utils
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import android.os.Handler
 import android.os.Looper
-import android.support.annotation.MainThread
+import androidx.annotation.MainThread
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {
@@ -14,16 +14,16 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
 
         if (Looper.getMainLooper() != Looper.myLooper()) {
-            mHandler.post({
+            mHandler.post {
                 super.observe(owner, Observer<T> { t ->
                     if (mHasPendingChanges.compareAndSet(true, false)) {
                         observer.onChanged(t)
                     }
                 })
-            })
+            }
         } else {
             super.observe(owner, Observer<T> { t ->
                 if (mHasPendingChanges.compareAndSet(true, false)) {

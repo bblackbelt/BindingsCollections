@@ -1,7 +1,7 @@
 package com.blackbelt.recyclerviewbindingsexample.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
 
 data class ItemViewModel(private val _name: String) : ViewModel() {
 

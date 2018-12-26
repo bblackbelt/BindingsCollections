@@ -1,42 +1,42 @@
 package com.blackbelt.bindings.recyclerviewbindings
 
-import android.databinding.BindingAdapter
-import android.databinding.InverseBindingAdapter
-import android.databinding.InverseBindingListener
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SnapHelper
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.blackbelt.bindings.BaseBindableRecyclerView
 
 
 private val KEY_ITEMS = -1024
 
 @BindingAdapter("itemViewBinder")
-fun setItemViewBinder(recyclerView: RecyclerView,
+fun setItemViewBinder(recyclerView: androidx.recyclerview.widget.RecyclerView,
                       itemViewMapper: Map<Class<*>, AndroidItemBinder>) {
     setItemViewBinder(recyclerView, itemViewMapper, true)
 }
 
 @BindingAdapter("itemViewBinder", "nestedScrollingEnabled")
-fun setItemViewBinder(recyclerView: RecyclerView, itemViewMapper: Map<Class<*>, AndroidItemBinder>,
+fun setItemViewBinder(recyclerView: androidx.recyclerview.widget.RecyclerView, itemViewMapper: Map<Class<*>, AndroidItemBinder>,
                       nestedScrollingEnabled: Boolean) {
     val items = recyclerView.getTag(KEY_ITEMS) as List<Any>?
     if (recyclerView.adapter is AndroidBindableRecyclerViewAdapter) {
         (recyclerView.adapter as AndroidBindableRecyclerViewAdapter).setDataSet(items)
         return
     }
-    val adapter = AndroidBindableRecyclerViewAdapter(itemViewMapper, items)
+    val adapter = AndroidBindableRecyclerViewAdapter(itemViewMapper)
     recyclerView.isNestedScrollingEnabled = nestedScrollingEnabled
     recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter
 }
 
 @BindingAdapter("nestedScrollingEnabled")
-fun setNestedScrollingEnabled(recyclerView: RecyclerView, nestedScrollingEnabled: Boolean) {
+fun setNestedScrollingEnabled(recyclerView: androidx.recyclerview.widget.RecyclerView, nestedScrollingEnabled: Boolean) {
     recyclerView.isNestedScrollingEnabled = nestedScrollingEnabled
 }
 
 @BindingAdapter("items")
-fun setItems(recyclerView: RecyclerView, items: List<Any>?) {
+fun setItems(recyclerView: androidx.recyclerview.widget.RecyclerView, items: List<Any>?) {
     recyclerView.setTag(KEY_ITEMS, items)
     if (recyclerView.adapter is AndroidBindableRecyclerViewAdapter) {
         (recyclerView.adapter as AndroidBindableRecyclerViewAdapter).setDataSet(items)
@@ -49,14 +49,14 @@ fun setOnItemClickListener(recyclerView: BaseBindableRecyclerView, clickListener
 }
 
 @BindingAdapter("layoutManager")
-fun <T> setLayoutManager(recyclerView: RecyclerView,
+fun <T> setLayoutManager(recyclerView: androidx.recyclerview.widget.RecyclerView,
                          layoutManager: LayoutManagers.LayoutManagerFactory) {
     val manager = layoutManager.create(recyclerView)
     recyclerView.layoutManager = manager
 }
 
 @BindingAdapter("itemDecoration")
-fun addDividerItemDecoration(recyclerView: RecyclerView, itemDecoration: RecyclerView.ItemDecoration?) {
+fun addDividerItemDecoration(recyclerView: androidx.recyclerview.widget.RecyclerView, itemDecoration: androidx.recyclerview.widget.RecyclerView.ItemDecoration?) {
     itemDecoration?.let {
         recyclerView.addItemDecoration(it)
     }
@@ -86,6 +86,6 @@ fun getPageDescriptor(recyclerView: AndroidBindableRecyclerView): PageDescriptor
 }
 
 @BindingAdapter("snapHelper")
-fun setSnapHelper(recyclerView: AndroidBindableRecyclerView, snapHelper: SnapHelper) {
+fun setSnapHelper(recyclerView: AndroidBindableRecyclerView, snapHelper: androidx.recyclerview.widget.SnapHelper) {
     recyclerView.setSnapHelper(snapHelper)
 }

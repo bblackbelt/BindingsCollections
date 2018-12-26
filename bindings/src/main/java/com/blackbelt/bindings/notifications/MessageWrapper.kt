@@ -1,8 +1,8 @@
 package com.blackbelt.bindings.notifications
 
 import android.content.DialogInterface
-import android.support.annotation.IntDef
-import android.support.design.widget.Snackbar
+import androidx.annotation.IntDef
+import com.google.android.material.snackbar.Snackbar
 import android.widget.Toast
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy

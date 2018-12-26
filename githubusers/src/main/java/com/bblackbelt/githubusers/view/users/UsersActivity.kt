@@ -1,12 +1,12 @@
 package com.bblackbelt.githubusers.view.users
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.arch.paging.PagedList
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import android.graphics.Rect
 import android.os.Bundle
 import com.bblackbelt.githubusers.BR
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.bblackbelt.githubusers.R
 import com.bblackbelt.githubusers.view.users.viewmodel.UsersViewModel

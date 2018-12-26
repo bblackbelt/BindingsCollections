@@ -1,7 +1,7 @@
 package com.bblackbelt.githubusers.repository.users
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PageKeyedDataSource
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PageKeyedDataSource
 import com.bblackbelt.githubusers.api.GitHubService
 import com.bblackbelt.githubusers.api.model.User
 import com.blackbelt.bindings.paging.NetworkState

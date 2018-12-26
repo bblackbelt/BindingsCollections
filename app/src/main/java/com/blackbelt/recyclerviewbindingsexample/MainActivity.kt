@@ -1,10 +1,11 @@
 package com.blackbelt.recyclerviewbindingsexample
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import com.blackbelt.bindings.activity.BaseBindingActivity
 import com.blackbelt.bindings.notifications.ClickItemWrapper
+import com.blackbelt.bindings.notifications.Params
 import com.blackbelt.recyclerviewbindingsexample.viewmodel.MainViewModel
 
 class MainActivity : BaseBindingActivity() {
@@ -22,7 +23,7 @@ class MainActivity : BaseBindingActivity() {
         setContentView(R.layout.activity_main, BR.mainViewModel, mMainViewModel)
     }
 
-    override fun onItemClicked(itemWrapper: ClickItemWrapper) {
-        Log.d("TEST", "TEST " + itemWrapper.additionalData)
+    override fun onItemClicked(itemWrapper: ClickItemWrapper<Params>) {
+        Log.d("TEST", "TEST " + itemWrapper.additionalData?.getString("TEST"))
     }
 }

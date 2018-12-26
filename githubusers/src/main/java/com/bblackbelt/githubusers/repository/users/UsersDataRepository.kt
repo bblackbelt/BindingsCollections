@@ -1,9 +1,9 @@
 package com.bblackbelt.githubusers.repository.users
 
-import android.arch.lifecycle.Transformations
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
-import android.support.annotation.MainThread
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import androidx.annotation.MainThread
 import com.bblackbelt.githubusers.api.model.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject

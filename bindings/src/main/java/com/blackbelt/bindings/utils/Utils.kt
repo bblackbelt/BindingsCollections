@@ -1,6 +1,6 @@
 package com.blackbelt.bindings.utils
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 
 @BindingAdapter("toVisibility")

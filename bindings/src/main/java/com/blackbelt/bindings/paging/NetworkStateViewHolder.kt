@@ -1,5 +1,5 @@
 package com.blackbelt.bindings.paging
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 
 class NetworkStateViewHolder(binding: ViewDataBinding) : PagedBindableViewHolder(binding)

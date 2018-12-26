@@ -4,16 +4,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.bblackbelt.githubusers"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
 
@@ -40,9 +40,8 @@ dependencies {
 
     implementation deps.aac.extensions
     implementation deps.aac.paging
-    implementation deps.support.appcompat
-    implementation deps.support.design
     implementation deps.support.cardview
+    implementation deps.support.design
 
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
@@ -63,5 +62,5 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

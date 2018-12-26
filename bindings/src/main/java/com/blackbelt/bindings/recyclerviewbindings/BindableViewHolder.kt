@@ -1,8 +1,8 @@
 package com.blackbelt.bindings.recyclerviewbindings
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
-class BindableViewHolder(viewDataBinding: ViewDataBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
+class BindableViewHolder(viewDataBinding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(viewDataBinding.root) {
     val mViewDataBinding = viewDataBinding
 }

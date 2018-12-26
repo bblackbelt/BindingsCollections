@@ -1,7 +1,7 @@
 package com.blackbelt.bindings.paging
 
-import android.arch.paging.PagedList
-import android.arch.paging.PagedListAdapter
+import androidx.paging.PagedList
+import androidx.paging.PagedListAdapter
 import android.content.Context
 import android.util.AttributeSet
 import com.blackbelt.bindings.BaseBindableRecyclerView

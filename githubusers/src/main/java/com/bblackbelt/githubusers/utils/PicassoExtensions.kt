@@ -1,8 +1,8 @@
 package com.bblackbelt.githubusers.utils
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.BitmapFactory
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import android.widget.ImageView
 import com.bblackbelt.githubusers.R
 import com.bblackbelt.githubusers.utils.RoundedTransformation

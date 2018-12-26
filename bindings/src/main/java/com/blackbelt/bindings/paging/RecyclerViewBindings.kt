@@ -1,9 +1,9 @@
 package com.blackbelt.bindings.paging
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.PagedList
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.blackbelt.bindings.recyclerviewbindings.AndroidItemBinder
 
 @BindingAdapter("submitList")
@@ -12,7 +12,7 @@ fun <T> submitList(view: PagedBindableRecyclerView, items: LiveData<PagedList<T>
 }
 
 @BindingAdapter("objectTemplates")
-fun <T : PagedItem> setItemViewBinder(recyclerView: RecyclerView, itemViewMapper: Map<Class<*>, AndroidItemBinder>) {
+fun <T : PagedItem> setItemViewBinder(recyclerView: androidx.recyclerview.widget.RecyclerView, itemViewMapper: Map<Class<*>, AndroidItemBinder>) {
     if (recyclerView.adapter != null) {
         return
     }
@@ -21,13 +21,13 @@ fun <T : PagedItem> setItemViewBinder(recyclerView: RecyclerView, itemViewMapper
 }
 
 @BindingAdapter("networkState")
-fun setNetworkState(recyclerView: RecyclerView, networkState: LiveData<NetworkState>?) {
+fun setNetworkState(recyclerView: androidx.recyclerview.widget.RecyclerView, networkState: LiveData<NetworkState>?) {
     (recyclerView.adapter as? PagedBindableRecyclerViewAdapter<*>)
             ?.setNetworkState(networkState?.value)
 }
 
 @BindingAdapter("networkStateLayout")
-fun setNetworkStateLayout(recyclerView: RecyclerView, networkState: Int?) {
+fun setNetworkStateLayout(recyclerView: androidx.recyclerview.widget.RecyclerView, networkState: Int?) {
     (recyclerView.adapter as? PagedBindableRecyclerViewAdapter<*>)
             ?.setNetworkStateLayout(networkState)
 }
