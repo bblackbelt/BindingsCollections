@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.blackbelt.bindings.notifications.BundleParams
 import com.blackbelt.bindings.notifications.ClickItemWrapper
 import com.blackbelt.bindings.notifications.MessageWrapper
 import com.blackbelt.bindings.recyclerviewbindings.AndroidItemBinder
@@ -24,35 +25,22 @@ class MainViewModel(resources: Resources) : BaseViewModel() {
 
     private val mResources = resources
 
-    private val mItemDecoration by lazy {
-        val margin: Int = mResources.getDimension(R.dimen.margin_4).toInt()
-        val lateralMargin: Int = mResources.getDimension(R.dimen.margin_16).toInt()
-        object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-                outRect?.bottom = margin
-                outRect?.top = margin
-                outRect?.left = lateralMargin
-                outRect?.right = lateralMargin
-            }
-        }
-    }
-
     init {
         val items = mutableListOf<ItemViewModel>()
         for (i in 1..100) {
             items.add(ItemViewModel(i.toString()))
         }
         this.items.postValue(items)
-        mMessageNotifier.value = MessageWrapper.withSnackBar(R.string.item_generation_complete)
+        sendMessageEvent(MessageWrapper.withSnackBar(R.string.item_generation_complete))
     }
-
-    fun getItemDecoration(): RecyclerView.ItemDecoration = mItemDecoration
 
     fun getItemClickListener() = object : ItemClickListener {
         override fun onItemClicked(view: View, item: Any?) {
             val listItem = item as? ItemViewModel ?: return
-            mMessageNotifier.value = MessageWrapper.withSnackBar(listItem.name)
-            mItemClickNotifier.value = ClickItemWrapper.withAdditionalData(0, listItem.name)
+            sendMessageEvent(MessageWrapper.withSnackBar(listItem.name))
+            val params = BundleParams()
+            params.putString("TEST", listItem.name ?: "")
+            sendCommandEvent(ClickItemWrapper(0, params))
             item.setName("test${item.name}")
         }
     }

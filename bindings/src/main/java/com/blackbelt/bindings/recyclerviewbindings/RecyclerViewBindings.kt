@@ -62,7 +62,7 @@ fun addDividerItemDecoration(recyclerView: RecyclerView, itemDecoration: Recycle
     }
 }
 
-@BindingAdapter(value = "pageDescriptorAttrChanged")
+@BindingAdapter("pageDescriptorAttrChanged")
 fun setListener(recyclerView: AndroidBindableRecyclerView, listener: InverseBindingListener?) {
     if (listener != null) {
         recyclerView.setOnPageChangeListener(object : OnPageChangeListener {

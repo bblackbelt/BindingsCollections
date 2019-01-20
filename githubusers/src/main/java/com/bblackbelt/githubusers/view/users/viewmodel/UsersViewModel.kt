@@ -38,7 +38,7 @@ class UsersViewModel(private val usersDataRepository: IUserDataRepository) : Bas
                     }
                     is User -> {
                         val listItem = item as? User ?: return
-                        mMessageNotifier.value = MessageWrapper.withSnackBar(listItem.login)
+                        sendMessageEvent(MessageWrapper.withSnackBar(listItem.login))
                     }
                 }
             }
@@ -49,11 +49,11 @@ class UsersViewModel(private val usersDataRepository: IUserDataRepository) : Bas
         val margin: Int = (Resources.getSystem().displayMetrics.density * 4f).toInt()
         val lateralMargin: Int = (Resources.getSystem().displayMetrics.density * 16f).toInt()
         object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-                outRect?.bottom = margin
-                outRect?.top = margin
-                outRect?.left = lateralMargin
-                outRect?.right = lateralMargin
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                outRect.bottom = margin
+                outRect.top = margin
+                outRect.left = lateralMargin
+                outRect.right = lateralMargin
             }
         }
     }

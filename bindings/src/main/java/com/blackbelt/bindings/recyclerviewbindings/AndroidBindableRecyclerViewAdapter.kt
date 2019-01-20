@@ -1,20 +1,12 @@
 package com.blackbelt.bindings.recyclerviewbindings
 
 import android.databinding.DataBindingUtil
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
-import android.support.v4.util.Pair
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
-import android.support.v7.util.DiffUtil.calculateDiff
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposables
-import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 
@@ -59,9 +51,9 @@ class AndroidBindableRecyclerViewAdapter internal constructor(private val mItemB
     companion object {
         val callBack = object : DiffUtil.ItemCallback<Any>() {
 
-            override fun areItemsTheSame(oldItem: Any?, newItem: Any?): Boolean = oldItem == newItem
+            override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: Any?, newItem: Any?): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
         }
     }
 }

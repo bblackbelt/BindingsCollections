@@ -18,12 +18,14 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
 
     var pageDescriptor: PageDescriptor? = null
         set(pageDescriptor) {
-            if (mPageScrollListener != null) {
-                removeOnScrollListener(mPageScrollListener)
+            mPageScrollListener?.let {
+                removeOnScrollListener(it)
             }
             field = pageDescriptor
             mPageScrollListener = PageScrollListener(field)
-            addOnScrollListener(mPageScrollListener)
+            mPageScrollListener?.let {
+                addOnScrollListener(it)
+            }
         }
 
     private var mOnPageChangeListener: OnPageChangeListener? = null
@@ -38,9 +40,9 @@ class AndroidBindableRecyclerView(context: Context, attrs: AttributeSet?) : Base
             mPage = mPageDescriptor!!.getStartPage()
         }
 
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             val pageDescriptor: PageDescriptor = mPageDescriptor ?: return
-            val layoutManager: LayoutManager = recyclerView?.layoutManager ?: return
+            val layoutManager: LayoutManager = recyclerView.layoutManager ?: return
             val totalItemCount = layoutManager.itemCount
             val lastVisibleItem = getLastVisibleItemPosition(layoutManager)
             if (totalItemCount - lastVisibleItem <= pageDescriptor.getThreshold()) {

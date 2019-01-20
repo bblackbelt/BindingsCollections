@@ -17,7 +17,6 @@
             items="@{mainViewModel.items}"
             itemViewBinder="@{mainViewModel.binders}"
             layoutManager="@{LayoutManagers.linear()}"
-            itemDecoration="@{mainViewModel.itemDecoration}"
             onItemClickListener="@{mainViewModel.itemClickListener}"
             tools:context="com.blackbelt.recyclerviewbindingsexample.MainActivity">
 

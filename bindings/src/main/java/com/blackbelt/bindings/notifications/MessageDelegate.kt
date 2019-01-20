@@ -2,12 +2,9 @@ package com.blackbelt.bindings.notifications
 
 import android.app.Activity
 import android.arch.lifecycle.ViewModel
-import android.content.Context
-import android.content.DialogInterface
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
-import com.blackbelt.bindings.R
 import java.lang.ref.WeakReference
 
 

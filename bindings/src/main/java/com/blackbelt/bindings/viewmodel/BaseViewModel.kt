@@ -1,16 +1,18 @@
 package com.blackbelt.bindings.viewmodel
 
 import android.arch.lifecycle.ViewModel
+import android.os.Looper
 import com.blackbelt.bindings.notifications.ClickItemWrapper
 import com.blackbelt.bindings.notifications.MessageWrapper
+import com.blackbelt.bindings.notifications.Params
 import com.blackbelt.bindings.utils.SingleLiveEvent
 
 
 open class BaseViewModel : ViewModel() {
 
-    protected val mMessageNotifier = SingleLiveEvent<MessageWrapper>()
+    private val mMessageNotifier = SingleLiveEvent<MessageWrapper>()
 
-    protected var mItemClickNotifier: SingleLiveEvent<ClickItemWrapper> = SingleLiveEvent()
+    private var mItemClickNotifier: SingleLiveEvent<ClickItemWrapper<Params>> = SingleLiveEvent()
 
     open fun handlerError(throwable: Throwable) {
         throwable.printStackTrace()
@@ -19,4 +21,20 @@ open class BaseViewModel : ViewModel() {
     open fun getMessageDelegate() = mMessageNotifier
 
     open fun getItemClickDelegate() = mItemClickNotifier
+
+    fun sendCommandEvent(itemWrapper: ClickItemWrapper<Params>) {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            mItemClickNotifier.value = itemWrapper
+        } else {
+            mItemClickNotifier.postValue(itemWrapper)
+        }
+    }
+
+    fun sendMessageEvent(wrapper: MessageWrapper) {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            mMessageNotifier.value = wrapper
+        } else {
+            mMessageNotifier.postValue(wrapper)
+        }
+    }
 }

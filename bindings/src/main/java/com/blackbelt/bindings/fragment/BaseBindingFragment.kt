@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.blackbelt.bindings.notifications.ClickItemWrapper
 import com.blackbelt.bindings.notifications.MessageDelegate
+import com.blackbelt.bindings.notifications.Params
 import com.blackbelt.bindings.viewmodel.BaseViewModel
 
 
@@ -50,12 +51,12 @@ abstract class BaseBindingFragment : Fragment() {
         return mDataBinding?.root
     }
 
-    private fun handleClick(item: ClickItemWrapper?) {
+    private fun handleClick(item: ClickItemWrapper<Params>?) {
         val itemClicked = item ?: return
         onItemClicked(itemClicked)
     }
 
-    protected open fun onItemClicked(itemWrapper: ClickItemWrapper) {}
+    protected open fun onItemClicked(itemWrapper: ClickItemWrapper<Params>) {}
 
     override fun onDestroy() {
         super.onDestroy()
